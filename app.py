@@ -1,7 +1,16 @@
 from flask import Flask,render_template,request,session,redirect
 from util import login as log
+from util import Reader as reader
+
 
 app=Flask(__name__)
+
+
+globe = {}
+
+globe["session"] = session
+
+
 
 @app.route('/')
 def root():
@@ -35,6 +44,16 @@ def signup():
 @app.route('/home')
 def home():
     return 'Homepage'
+
+@app.route('/account/<usr>')
+def account(usr):
+    user_list = reader.getCsvDict("./util/credentials.txt")
+    if not usr in user_list.keys():
+        return render_template("error.html",error = "The username you have provided does not exist.",globe=globe)
+    return render_template("account.html",user = usr,user_list = user_list,globe=globe)
+    
+
+
 
 @app.route('/logout')
 def logout():
