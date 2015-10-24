@@ -14,7 +14,7 @@ def log_in():
     elif request.method=="POST":
         data=request.form
         if log.validate(data['username'],data['password'])==True:
-            #session['username']=data['username']
+            session['username']=data['username']
             return redirect('/home')
         else:
             return 'Invalid login'
@@ -39,10 +39,10 @@ def home():
 @app.route('/logout')
 def logout():
     # remove the username from the session if it's there
-    #session.pop('username', None)
+    session.pop('username', None)
     return 'logout'
 
 if __name__=='__main__':
-    #app.secret_key='\xf2\xd4\x9c\xc8\xf6~\xabk|\x8bL\xfbfK\x7f\xc5\xc3\xc4\x0bX\xa7\xf3\x91\x1f'
+    app.secret_key='\xf2\xd4\x9c\xc8\xf6~\xabk|\x8bL\xfbfK\x7f\xc5\xc3\xc4\x0bX\xa7\xf3\x91\x1f'
     app.debug=True
     app.run()
