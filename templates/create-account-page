@@ -31,6 +31,10 @@
         <label for="language">preferred language for conversing</label>
         <input type="language" id="language">
     </div>
+     <div>
+        <label for="gender">your gender</label>
+        <input type="gender" id="gender">
+    </div>
     <div class="button">
         <button type="submit">Create</button>
     </div>
