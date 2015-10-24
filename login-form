@@ -1,0 +1,23 @@
+<html><head>
+	<title>SlothPal--Login</title>
+  </head>
+  
+	<body>
+		<form action="/my-handling-form-page" method="post">
+    		<div>
+        		<label for="username">username:</label>
+        		<input type="text" id="username">
+    		</div>
+          <div>
+            <label for="password">password: </label>
+            <input type="password" id="password">
+    
+    		<div class="button">
+        		<button type="submit">Submit</button>
+    		</div>    
+		
+    
+</div>
+</form>
+</body>
+</html>
