@@ -1,10 +1,11 @@
 from flask import Flask,render_template,request,session,redirect
+from flask_bootstrap import Bootstrap
 from util import login as log
 from util import Reader as reader
 
 
 app=Flask(__name__)
-
+Bootstrap(app)
 
 globe = {}
 
@@ -14,7 +15,7 @@ globe["session"] = session
 
 @app.route('/')
 def root():
-    return render_template('login-form.html')
+    return render_template('account/login.html')
 
 @app.route('/login',methods=['GET','POST'])
 def log_in():
@@ -50,10 +51,12 @@ def account(usr):
     user_list = reader.getCsvDict("./util/credentials.txt")
     if not usr in user_list.keys():
         return render_template("error.html",error = "The username you have provided does not exist.",globe=globe)
-    return render_template("account.html",user = usr,user_list = user_list,globe=globe)
+    return render_template("account.html",user = usr,user_list = user_list,globe=globe, img="http://i.huffpost.com/gen/1452989/images/o-BABY-SLOTH-facebook.jpg")
     
-
-
+@app.route('/account/pfppic', methods=['POST'])
+def pfppic():
+    url=request.form['image']
+    return redirect('/account/'+session['username'])
 
 @app.route('/logout')
 def logout():

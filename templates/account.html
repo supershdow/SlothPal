@@ -2,9 +2,9 @@
 <html>
 <body>
 <h2>{{user}}'s Profile</h2>
-
+<img src={{img}}>
   {% if globe['session']['username'] == user %}
-   <form action = "/account/change_profile_img" method = "POST">
+   <form action = "/account/pfppic" method = "POST">
     <br><input type = "text" name = "image" >
     <input type = "submit" value = "Change Profile Image" > 
    </form>
