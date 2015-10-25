@@ -1,7 +1,14 @@
-{% extends "base.html" %}
+{% extends "signup_base.html" %}
 
 {% block content %}
+<head>
+<style>
+<link rel="stylesheet" type="text/css" href="fuck.css"/>
+</style>
 <title>Your home</title>
+</head>
+<div class="yes">
+<div class="yeah">
 <h1 style="color:black">Welcome {{user}}</h1>
 <a href={{prof}}><button>Your profile</button></a><br>
 {% if recomended==True %}
@@ -9,4 +16,6 @@
 {% endif %}
 <a href={{dir}}><button>Messages</button></a><br>
 <a href="/logout"><button>Logout</button></a>
+</div>
+</div>
 {% endblock %}

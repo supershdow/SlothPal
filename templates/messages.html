@@ -1,17 +1,24 @@
-{% extends "base.html" %}
-
-{% block content %}
+<!Doctype html>
+<html>
+<head>
+<title>Messages</title>
+<style>
+<link rel="stylesheet" type="text/css" href="messages.css"/>
+</style>
+</head>
+<body>
 <form action={{dir}} method="POST">
 <h4>Who do you want to send a message to: <input type="text" name="recipient"></h4>
 <h5>What do you want that message to say: <input type="text" name="message"></h5>
 <input type="submit" value="submit">
 </form>
 <a href="/home"><button>Go home</button></a>
-<h6>Your messages: <br>
+<h6 style="font-size:20px">Your messages: <br>
 {% for message in messages %}
 
 {{message}}<br>
 
 {% endfor %}
 </h6>
-{% endblock %}
+</body>
+</html>
