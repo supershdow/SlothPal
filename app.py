@@ -61,10 +61,10 @@ def home():
     for i in user_list.keys():
         if user_list[i][2]==current:
             rec.append(user_list.items()[g][0])
-            print rec
             rect=True
         g+=1
-    rec=choice(rec)
+    if rec!=[]:
+        rec=choice(rec)
     usr=session['username']
     url='/account/'+usr+'/sendmessage'
     if not rect:
