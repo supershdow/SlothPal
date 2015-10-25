@@ -1,20 +1,25 @@
-{% extends "base.html" %}
-
-{% block content %}
-<h2>{{user}}'s Profile</h2>
-<img src={{img}}>
-  {% if globe['session']['username'] == user %}
+<!DOCTYPE html>
+<head>
+	<title>SlothPal - Profile</title>
+	<link rel="stylesheet" href="acct.css"/>
+</head>
+<body>	
+	<div class="yeah">
+		<div class="yeah2">
+	<h2>{{user}}'s Profile</h2>
+	<img src={{img}}>
+  
    <form action = "/account/pfppic" method = "POST">
     <br><input type = "text" name = "image" >
     <input type = "submit" value = "Change Profile Image" > 
    </form>
    
-  {%endif%}
 <br>
-<a href="/home"><button>Go home</button></a>   
-<p>Gender: {{gender}}<br>
+<a href="/home"><button>Go home</button></a> <br>  
+	 <p>Gender: {{gender}}<br>
      Lives in: {{Country}}<br>
      Looking for someone in: {{target}}
      </p>
-
-{% endblock %}
+ </div>
+</div>
+</body>
