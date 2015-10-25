@@ -1,0 +1,46 @@
+body {
+ 
+    background-color: white;
+}
+
+.yeah{
+     height: 500px;
+    width: 600px;
+    background: url("rushmore.jpg");
+    border-radius: 10%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+}
+
+.yeah2{
+
+     position:relative;
+    background: rgba(0, 0, 0,0.5); 
+     height: 300px;
+    width: 300px;
+    border-radius: 7%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    
+}
+
+button {
+    background-color: #29CBC7;
+    border-radius: 20px;
+    position: fixed;
+    font-family: "Open Sans"
+}
+
+form {
+    color : white;
+    padding-top :20px;
+    font-family: "Open Sans"
+}
