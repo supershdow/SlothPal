@@ -15,7 +15,7 @@ globe["session"] = session
 
 @app.route('/')
 def root():
-    return render_template('account/login.html')
+    return render_template('login-form.html')
 
 @app.route('/login',methods=['GET','POST'])
 def log_in():
@@ -27,18 +27,19 @@ def log_in():
             session['username']=data['username']
             return redirect('/home')
         else:
-            return 'Invalid login'
+            return redirect('/')
     else:
         return 'yo'
 
 @app.route('/signup',methods=['GET','POST'])
 def signup():
-    data=request.form
+    print request.method
     if request.method=='GET':
         return render_template('signup.html')
     elif request.method=='POST':
-        log.signup(data['username'],data['password'])
-        return 'Successfully signed up'
+        data=request.form
+        log.signup(data['nuser'],data['npswd'])
+        return render_template('login-form.html')
     else:
         return 'yo'
 
@@ -51,11 +52,17 @@ def account(usr):
     user_list = reader.getCsvDict("./util/credentials.txt")
     if not usr in user_list.keys():
         return render_template("error.html",error = "The username you have provided does not exist.",globe=globe)
-    return render_template("account.html",user = usr,user_list = user_list,globe=globe, img="http://i.huffpost.com/gen/1452989/images/o-BABY-SLOTH-facebook.jpg")
+    img=reader.getCsvDict('util/pfpimg.txt')
+    if usr in img:
+        img=img[usr][0]
+    else:
+        img='http://s3-static-ak.buzzfed.com/static/2014-07/14/12/campaign_images/webdr09/meet-lunita-the-cutest-baby-sloth-on-planet-earth-2-9684-1405357019-4_big.jpg'
+    return render_template("account.html",user = usr,user_list = user_list,globe=globe, img=img)
     
 @app.route('/account/pfppic', methods=['POST'])
 def pfppic():
     url=request.form['image']
+    reader.write_file('util/pfpimg.txt',session['username']+','+url+'\n','a')
     return redirect('/account/'+session['username'])
 
 @app.route('/logout')

@@ -15,7 +15,7 @@ def signup(new_username,new_password):
     if new_username=='' or new_password=='' or new_username in previousCredentials or new_username.find(',')!=-1 or new_password.find(',')!=-1:
         return 'Invalid signup credentials'
     else:
-        read.write_file('./util/credentials.txt',new_credentials+'\n','a')
+        read.write_file('./util/credentials.txt','\n'+new_credentials,'a')
         return 'Successfully signed up'
 
 if __name__=='__main__':

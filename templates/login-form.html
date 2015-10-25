@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
+{% extends "base.html" %}
 	<title>SlothPal Login</title>
-</head>
-  <body>
+{% block content %}
     <form action="/login" method="post">
     <div>
         <label for="name">username</label>
@@ -16,6 +13,6 @@
     <div class="button">
         <button type="submit">Login</button>
     </div>
-</form>
-</body>
-</html>
+    </form>
+    <a  href="/signup"><button>Sign Up</button></a>
+{% endblock %}
