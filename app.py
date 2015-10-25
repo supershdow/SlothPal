@@ -45,10 +45,14 @@ def signup():
 
 @app.route('/home')
 def home():
-    return 'Homepage'
+    if not 'username' in session:
+        return redirect('/')
+    return render_template('home.html',user=session['username'],prof='/account/'+session['username'])
 
 @app.route('/account/<usr>')
 def account(usr):
+    if not 'username' in session:
+        return redirect('/')
     user_list = reader.getCsvDict("./util/credentials.txt")
     if not usr in user_list.keys():
         return render_template("error.html",error = "The username you have provided does not exist.",globe=globe)
@@ -61,6 +65,8 @@ def account(usr):
     
 @app.route('/account/pfppic', methods=['POST'])
 def pfppic():
+    if not 'username' in session:
+        return redirect('/')
     url=request.form['image']
     reader.write_file('util/pfpimg.txt',session['username']+','+url+'\n','a')
     return redirect('/account/'+session['username'])
@@ -69,7 +75,7 @@ def pfppic():
 def logout():
     # remove the username from the session if it's there
     session.pop('username', None)
-    return 'logout'
+    return redirect('/')
 
 if __name__=='__main__':
     app.secret_key='\xf2\xd4\x9c\xc8\xf6~\xabk|\x8bL\xfbfK\x7f\xc5\xc3\xc4\x0bX\xa7\xf3\x91\x1f'
