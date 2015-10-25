@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+<title>Your home</title>
+<h1>Welcome {{user}}</h1>
+<a href={{prof}}><button>Your profile</button></a>
+<a href="/logout"><button>Logout</button></a>
+{% endblock %}
