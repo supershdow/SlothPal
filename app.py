@@ -33,12 +33,11 @@ def log_in():
 
 @app.route('/signup',methods=['GET','POST'])
 def signup():
-    print request.method
     if request.method=='GET':
         return render_template('signup.html')
     elif request.method=='POST':
         data=request.form
-        log.signup(data['nuser'],data['npswd'])
+        log.signup(data['nuser'],data['npswd'],data['gender'],data['Countryin'],data['Targetcountry'])
         return render_template('login-form.html')
     else:
         return 'yo'
@@ -47,7 +46,19 @@ def signup():
 def home():
     if not 'username' in session:
         return redirect('/')
-    return render_template('home.html',user=session['username'],prof='/account/'+session['username'])
+    user_list=reader.getCsvDict('./util/credentials.txt')
+    current=user_list[session['username']][3]
+    del user_list[session['username']]
+    g=0
+    rect=False
+    for i in user_list.keys():
+        if user_list[i][2]==current:
+            rec=user_list.items()[g][0]
+            rect=True
+        g+=1
+    if not rect:
+        return render_template('home.html',user=session['username'],prof='/account/'+session['username'],recomended=rect)
+    return render_template('home.html',user=session['username'],prof='/account/'+session['username'],rec='/account/'+rec,recomended=rect)
 
 @app.route('/account/<usr>')
 def account(usr):
@@ -57,11 +68,16 @@ def account(usr):
     if not usr in user_list.keys():
         return render_template("error.html",error = "The username you have provided does not exist.",globe=globe)
     img=reader.getCsvDict('util/pfpimg.txt')
+    userinfo=user_list[usr]
+    print userinfo
+    gender=userinfo[1]
+    Countryin=userinfo[2]
+    Target=userinfo[3]
     if usr in img:
         img=img[usr][0]
     else:
         img='http://s3-static-ak.buzzfed.com/static/2014-07/14/12/campaign_images/webdr09/meet-lunita-the-cutest-baby-sloth-on-planet-earth-2-9684-1405357019-4_big.jpg'
-    return render_template("account.html",user = usr,user_list = user_list,globe=globe, img=img)
+    return render_template("account.html",user = usr,user_list = user_list,globe=globe, img=img,gender=gender,Country=Countryin,target=Target)
     
 @app.route('/account/pfppic', methods=['POST'])
 def pfppic():

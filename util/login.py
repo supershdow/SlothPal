@@ -9,9 +9,9 @@ def validate(username, password):
     else:
         return False
 
-def signup(new_username,new_password):
+def signup(new_username,new_password,gender,Countryin,Targetcountry):
     previousCredentials=read.read_file('./util/credentials.txt')
-    new_credentials='%s,%s'%(new_username,new_password)
+    new_credentials='%s,%s,%s,%s,%s'%(new_username,new_password,gender,Countryin,Targetcountry)
     if new_username=='' or new_password=='' or new_username in previousCredentials or new_username.find(',')!=-1 or new_password.find(',')!=-1:
         return 'Invalid signup credentials'
     else:
