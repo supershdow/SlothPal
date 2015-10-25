@@ -1,23 +1,26 @@
-{% extends "base.html" %}
-<title>Sign up</title>
-
-{% block content %}
-<h3>Sign Up</h3>
-<form action="/signup" method="POST">
-  Username: <input type="text" name="nuser"><br>
-  Password: <input type="password" name="npswd"><br>
-  Gender: <select name="mydropdown">
+<!DOCTYPE html>
+<head>
+  <title>Sign up</title>
+  <link type="text/css" rel="stylesheet" href="creatacct.css"/>
+</head>
+<body>
+  <div class="yeah">
+    <div class="yeah2">
+      <form action="/signup" method="POST">
+        Sign Up<br><br>
+      Username: <input type="text" name="nuser"><br><br>
+      Password: <input type="password" name="npswd"><br><br>
+      Gender: <select name="mydropdown">
           <option value="blank"> </option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
-		<option value="fluid">Gender fluid</option>
-		<option value="agender">Agender</option>
+		            <option value="fluid">Gender fluid</option>
+		            <option value="agender">Agender</option>
                 <option value="null">Other</option>
-                </select><!--Male, Female, gender fluid, agender, other-->
-  Residing country: <input type="text" name="Countryin"><br>
-  Target country: <input type="text" name="Countrylook"><br>
-  
-  <input type="submit" value="Sign Up">
-</form>
-
-{% endblock %}
+                </select><br><br><!--Male, Female, gender fluid, agender, other-->
+      Residing country: <input type="text" name="Countryin"><br><br>
+      Target country: <input type="text" name="Countrylook"><br><br>
+        <button type="submit">Sign Up!</button>
+      </form>
+    </div>
+  </div>
