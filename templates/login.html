@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<!--
+	Astral by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+	<head>
+		<title>Sloth Pal</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}" />
+
+		<noscript><link rel="stylesheet" href="{{ url_for('static', filename='noscript.css')}}" /></noscript>
+
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		
+		<style>
+		 input[type=password] 
+		 {
+		  border: 1px dotted #999;
+		  border-radius: 0;
+
+		  -webkit-appearance: none;
+		}
+		</style>
+		
+	</head>
+	<body>
+		<!-- Wrapper-->
+			<div id="wrapper">
+
+				
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Me -->
+							<article id="me" class="panel">
+								  <form action="/login" method="post">
+								  
+									<div>
+									
+										<label for="name">username</label>
+										<input type="text" name="username">
+									</div>
+									<div>
+										<label for="password">password</label>
+										<input type="password" name="password">
+									</div>
+								   <center> <div class="button">
+										<button type="submit">Login</button>
+									</div>
+									</center>
+								</form>
+							</article>
+
+						
+
+					</div>
+
+				<!-- Footer -->
+					<div id="footer">
+						<ul class="copyright">
+							<li>&copy; Sloth Pal 2015.</li>
+						</ul>
+					</div>
+
+			</div>
+
+
+		<!-- Scripts -->
+			<script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+			<script src="{{ url_for('static', filename='skel.min.js')}}"></script>
+			<script src="{{ url_for('static', filename='skel-viewport.min.js')}}"></script>
+			<script src="{{ url_for('static', filename='util.js')}}"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="{{ url_for('static', filename='main.js')}}"></script>
+
+
+
+	</body>
+</html>
+

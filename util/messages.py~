@@ -1,0 +1,8 @@
+import Reader
+
+def sendMessage(recipient,message):
+    Reader.write_file(recipient+'message.txt',message,'a')
+
+def readMessage(user):
+    messages=Reader.getCsvDict(user+'message.txt')
+    return messages
