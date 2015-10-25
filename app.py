@@ -1,8 +1,8 @@
-from flask import Flask,render_template,request,session,redirect
+from flask import Flask,render_template,request,session,redirect,url_for
 from flask_bootstrap import Bootstrap
 from util import login as log
 from util import Reader as reader
-
+from util import messages as mess
 
 app=Flask(__name__)
 Bootstrap(app)
@@ -15,7 +15,9 @@ globe["session"] = session
 
 @app.route('/')
 def root():
-    return render_template('login-form.html')
+    #return app.send_static_file('account/login.html')
+    #return url_for('static', filename='login.html')
+    return render_template('login.html')
 
 @app.route('/login',methods=['GET','POST'])
 def log_in():
@@ -56,9 +58,11 @@ def home():
             rec=user_list.items()[g][0]
             rect=True
         g+=1
+    usr=session['username']
+    url='/account/'+usr+'/sendmessage'
     if not rect:
-        return render_template('home.html',user=session['username'],prof='/account/'+session['username'],recomended=rect)
-    return render_template('home.html',user=session['username'],prof='/account/'+session['username'],rec='/account/'+rec,recomended=rect)
+        return render_template('home.html',user=session['username'],prof='/account/'+session['username'],recomended=rect,dir=url)
+    return render_template('home.html',user=session['username'],prof='/account/'+session['username'],rec='/account/'+rec,recomended=rect,dir=url)
 
 @app.route('/account/<usr>')
 def account(usr):
@@ -86,6 +90,24 @@ def pfppic():
     url=request.form['image']
     reader.write_file('util/pfpimg.txt',session['username']+','+url+'\n','a')
     return redirect('/account/'+session['username'])
+
+@app.route('/account/<usr>/sendmessage',methods=['GET','POST'])
+def sendmessage(usr):
+    reader.write_file('./util/'+usr+'message.txt','','a')
+    url='/account/'+usr+'/sendmessage'
+    if not 'username' in session:
+        return redirect('/')
+    user_list=reader.getCsvDict('./util/credentials.txt').keys()
+    print user_list
+    messages=reader.read_file('./util/'+usr+'message.txt')
+    messages=messages.split('\n')
+    if request.method=='GET':
+        return render_template('messages.html',dir=url,messages=messages)
+    elif request.method=='POST':
+        if not request.form['recipient'] in user_list:
+            return render_template('messages.html',dir=url,messages=messages)
+        mess.sendMessage(session['username'],request.form['recipient'],request.form['message'])
+        return redirect(url)
 
 @app.route('/logout')
 def logout():
