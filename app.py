@@ -1,8 +1,9 @@
 from flask import Flask,render_template,request,session,redirect,url_for
 from flask_bootstrap import Bootstrap
-from util import login as log
+from util import login as lo
 from util import Reader as reader
 from util import messages as mess
+from random import choice
 
 app=Flask(__name__)
 Bootstrap(app)
@@ -12,9 +13,12 @@ globe = {}
 globe["session"] = session
 
 
-
 @app.route('/')
 def root():
+    return render_template('index.html')
+
+@app.route('/log')
+def log():
     #return app.send_static_file('account/login.html')
     #return url_for('static', filename='login.html')
     return render_template('login.html')
@@ -25,7 +29,7 @@ def log_in():
         return 'GET'
     elif request.method=="POST":
         data=request.form
-        if log.validate(data['username'],data['password'])==True:
+        if lo.validate(data['username'],data['password'])==True:
             session['username']=data['username']
             return redirect('/home')
         else:
@@ -39,8 +43,8 @@ def signup():
         return render_template('signup.html')
     elif request.method=='POST':
         data=request.form
-        log.signup(data['nuser'],data['npswd'],data['gender'],data['Countryin'],data['Targetcountry'])
-        return render_template('login-form.html')
+        lo.sign_up(data['nuser'],data['npswd'],data['gender'],data['Countryin'],data['Countrylook'])
+        return redirect('/')
     else:
         return 'yo'
 
@@ -53,11 +57,14 @@ def home():
     del user_list[session['username']]
     g=0
     rect=False
+    rec=[]
     for i in user_list.keys():
         if user_list[i][2]==current:
-            rec=user_list.items()[g][0]
+            rec.append(user_list.items()[g][0])
+            print rec
             rect=True
         g+=1
+    rec=choice(rec)
     usr=session['username']
     url='/account/'+usr+'/sendmessage'
     if not rect:
