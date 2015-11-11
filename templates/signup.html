@@ -3,7 +3,9 @@
 {% block content %}
 <div class="yeah">
 <div class="yeah2">
+{% block head %}
 <h3>Sign Up</h3>
+{% endblock %}
 <form action="/signup" method="POST">
   Username: <input type="text" name="nuser"><br>
   Password: <input type="password" name="npswd"><br>
@@ -17,8 +19,9 @@
                 </select><!--Male, Female, gender fluid, agender, other--><br>
   Residing country: <input type="text" name="Countryin"><br>
   Target country: <input type="text" name="Countrylook"><br>
-  
-  <input type="submit" value="Sign Up">
+  {% block button %}
+  <input type="submit" name="change" value="Sign Up">
+  {% endblock %}
 </form>
 </div>
 </div>

@@ -1,0 +1,55 @@
+body {
+ 
+    background-color: white;
+}
+
+h1{
+	font-family: verdana;
+	
+}
+.no{
+     height: 500px;
+    width: 400px;
+    background: url("fuck.jpg");
+    border-radius: 10%;
+    position: fixed;
+    top: 10;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+}
+
+.yes{
+
+     position:relative;
+    background: rgba(0, 0, 0,0.5); 
+     height: 200px;
+    width: 200px;
+    border-radius: 7%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    
+}
+.yeah{
+	padding-top: 50px;
+	padding-left:40px;
+}
+
+
+button {
+    background-color: #29CBC7;
+    border-radius: 20px;
+    height : 25px;
+    font-family: "Open Sans"
+}
+
+form {
+    color : white;
+    padding-top :20px;
+    font-family: "Open Sans"
+}

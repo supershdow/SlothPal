@@ -11,18 +11,21 @@
 		<div class="yeah2">
 	<h2>{{user}}'s Profile</h2>
 	<img src={{img}}>
-  
+{% if own==True %}
    <form action = "/account/pfppic" method = "POST">
     <br><input type = "text" name = "image" >
     <input type = "submit" value = "Change Profile Image" > 
    </form>
-   
+{% endif %}
 <br>
 <a href="/home"><button>Go home</button></a> <br>  
 	 <p>Gender: {{gender}}<br>
      Lives in: {{Country}}<br>
      Looking for someone in: {{target}}
      </p>
+{% if own==True %}
+<a href={{dir}}><button>Change Information</button></a>
+{% endif %}
  </div>
 </div>
 </body>

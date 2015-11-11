@@ -43,6 +43,9 @@ def signup():
         return render_template('signup.html')
     elif request.method=='POST':
         data=request.form
+        if data['change']=="Change info":
+            lo.changeSettings(session['username'],data['nuser'],data['npswd'],data['gender'],data['Countryin'],data['Countrylook'])
+            return redirect('/account/'+session['username'])
         lo.sign_up(data['nuser'],data['npswd'],data['gender'],data['Countryin'],data['Countrylook'])
         return redirect('/')
     else:
@@ -80,15 +83,19 @@ def account(usr):
         return render_template("error.html",error = "The username you have provided does not exist.",globe=globe)
     img=reader.getCsvDict('util/pfpimg.txt')
     userinfo=user_list[usr]
-    print userinfo
     gender=userinfo[1]
     Countryin=userinfo[2]
     Target=userinfo[3]
+    url='/account/'+session['username']+'/settings'
+    if session['username']==usr:
+        own=True
+    else:
+        own=False
     if usr in img:
         img=img[usr][0]
     else:
         img='http://s3-static-ak.buzzfed.com/static/2014-07/14/12/campaign_images/webdr09/meet-lunita-the-cutest-baby-sloth-on-planet-earth-2-9684-1405357019-4_big.jpg'
-    return render_template("account.html",user = usr,user_list = user_list,globe=globe, img=img,gender=gender,Country=Countryin,target=Target)
+    return render_template("account.html",user = usr,user_list = user_list,globe=globe, img=img,gender=gender,Country=Countryin,target=Target,own=own,dir=url)
     
 @app.route('/account/pfppic', methods=['POST'])
 def pfppic():
@@ -105,7 +112,6 @@ def sendmessage(usr):
     if not 'username' in session:
         return redirect('/')
     user_list=reader.getCsvDict('./util/credentials.txt').keys()
-    print user_list
     messages=reader.read_file('./util/'+usr+'message.txt')
     messages=messages.split('\n')
     if request.method=='GET':
@@ -115,6 +121,10 @@ def sendmessage(usr):
             return render_template('messages.html',dir=url,messages=messages)
         mess.sendMessage(session['username'],request.form['recipient'],request.form['message'])
         return redirect(url)
+
+@app.route('/account/<usr>/settings')
+def settings(usr):
+    return render_template("settings.html")
 
 @app.route('/logout')
 def logout():

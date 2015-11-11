@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+
+<style>
+body {
+
+    background-color: white;
+}
+
+.yeah{
+     height: 500px;
+    width: 600px;
+    background-image: url("rushmore.jpg");
+    border-radius: 10%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+}
+
+.yeah2{
+
+     position:relative;
+    background: rgba(0, 0, 0,0.5);
+     height: 300px;
+    width: 300px;
+    border-radius: 7%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+
+}
+
+button {
+    background-color: #29CBC7;
+    border-radius: 20px;
+    position: fixed;
+    font-family: "Open Sans"
+}
+
+form {
+    color : white;
+    padding-top :20px;
+    font-family: "Open Sans"
+}
+</style>
+{% block content %}
+<div class="yeah">
+    <div class="yeah2">
+      <form action="/signup" method="POST">
+        Sign Up<br><br>
+      Username: <input type="text" name="nuser"><br><br>
+      Password: <input type="password" name="npswd"><br><br>
+      Gender: <select name="mydropdown">
+          <option value="blank"> </option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+		            <option value="fluid">Gender fluid</option>
+			                <option value="agender">Agender</option>
+                <option value="null">Other</option>
+                </select><br><br><!--Male, Female, gender fluid, agender, other-->
+      Residing country: <input type="text" name="Countryin"><br><br>
+      Target country: <input type="text" name="Countrylook"><br><br>
+        <button type="submit">Sign Up!</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}
