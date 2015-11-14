@@ -62,7 +62,7 @@ def home():
     rect=False
     rec=[]
     for i in user_list.keys():
-        if user_list[i][2]==current:
+        if user_list[i]==current:
             rec.append(user_list.items()[g][0])
             rect=True
         g+=1
@@ -114,13 +114,33 @@ def sendmessage(usr):
     user_list=reader.getCsvDict('./util/credentials.txt').keys()
     messages=reader.read_file('./util/'+usr+'message.txt')
     messages=messages.split('\n')
+    messages.pop(-1)
+    if messages==['']:
+        out=False
+    else:
+        out=True
     if request.method=='GET':
-        return render_template('messages.html',dir=url,messages=messages)
+        return render_template('messages.html',dir=url,messages=messages,out=out)
     elif request.method=='POST':
         if not request.form['recipient'] in user_list:
-            return render_template('messages.html',dir=url,messages=messages)
+            return render_template('messages.html',dir=url,messages=messages,out=out)
         mess.sendMessage(session['username'],request.form['recipient'],request.form['message'])
         return redirect(url)
+
+@app.route('/delete',methods=['GET','POST'])
+def delete():
+    if request.method=='GET':
+        reader.write_file('./util/'+session['username']+'message.txt','')
+    else: 
+        if request.method=='POST':
+            old=reader.getCsvList('./util/'+session['username']+'message.txt')
+            old.pop([int(request.form.keys()[0])][0])
+            reader.write_file('./util/'+session['username']+'message.txt','')
+            old.pop()
+            for mess in old:
+                reader.write_file('./util/'+session['username']+'message.txt',mess[0]+'\n','a')
+    return redirect('/account/'+session['username']+'/sendmessage')
+            
 
 @app.route('/account/<usr>/settings')
 def settings(usr):

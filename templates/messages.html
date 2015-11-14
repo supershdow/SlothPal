@@ -10,15 +10,21 @@
 <form action={{dir}} method="POST">
 <h4>Who do you want to send a message to: <input type="text" name="recipient"></h4>
 <h5>What do you want that message to say: <input type="text" name="message"></h5>
-<input type="submit" value="submit">
+<input type="submit" value="Send"><br>
 </form>
+<a href="/delete"><button>Delete All Messages (Irreversible)</button></a><br>
 <a href="/home"><button>Go home</button></a>
 <h6 style="font-size:20px">Your messages: <br>
+{% if out  %}
+<form action="/delete" method="POST">
 {% for message in messages %}
 
-{{message}}<br>
+{{message}}
 
+<input type="submit" value="delete" name={{messages.index(message)}}><br>
 {% endfor %}
+</form>
+{% endif %}
 </h6>
 </body>
 </html>
